@@ -19,7 +19,7 @@ public class SensorController {
     @GetMapping
     public Page<SensorDTO> listar(@RequestParam(required = false) Long tipoSensorId, Pageable pageable) {
         return service.listar(tipoSensorId, pageable);
-}
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<SensorDTO> buscarPorId(@PathVariable Long id) {
@@ -42,5 +42,21 @@ public class SensorController {
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    
+    @GetMapping("/tipo/{tipoSensorId}")
+    public Page<SensorDTO> listarPorTipo(@PathVariable Long tipoSensorId, Pageable pageable) {
+        return service.listarPorTipo(tipoSensorId, pageable);
+    }
+
+    
+    @GetMapping("/count-by-localizacao")
+    public ResponseEntity<Long> contarPorLocalizacao(@RequestParam Long localizacaoId) {
+        Long count = service.contarPorLocalizacao(localizacaoId);
+        if (count == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(count);
     }
 }

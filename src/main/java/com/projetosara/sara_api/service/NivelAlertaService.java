@@ -27,6 +27,19 @@ public class NivelAlertaService {
         return repository.findByFiltro(codigo, pageable).map(mapper::toDTO);
     }
 
+    @Cacheable(value = "niveisAlerta", key = "'codigoExato-' + #codigo")
+    public Optional<NivelAlertaDTO> findByCodigoExato(String codigo) {
+        return repository.findByCodigoExato(codigo).map(mapper::toDTO);
+    }
+
+    @Cacheable(value = "niveisAlerta", key = "'contarAlertas-' + #id")
+    public Long contarAlertas(Long id) {
+        return repository.findById(id)
+                .map(nivel -> (long) nivel.getAlertas().size())
+                .orElse(null);
+    }
+
+
     @Cacheable(value = "niveisAlerta", key = "#id")
     public Optional<NivelAlertaDTO> findById(Long id) {
         return repository.findById(id).map(mapper::toDTO);

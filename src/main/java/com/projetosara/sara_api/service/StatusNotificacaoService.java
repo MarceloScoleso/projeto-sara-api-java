@@ -21,7 +21,7 @@ public class StatusNotificacaoService {
     private final StatusNotificacaoRepository repository;
     private final StatusNotificacaoMapper mapper;
 
-    @Cacheable(value = "statusNotificacoes")
+    @Cacheable(value = "statusNotificacoes", key = "'listar-' + #codigo + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<StatusNotificacaoDTO> listar(String codigo, Pageable pageable) {
         return repository.findByFiltro(codigo, pageable).map(mapper::toDTO);
     }
@@ -51,5 +51,15 @@ public class StatusNotificacaoService {
     @CacheEvict(value = "statusNotificacoes", allEntries = true)
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    @Cacheable(value = "statusNotificacoes", key = "'codigo-' + #codigo")
+    public Optional<StatusNotificacaoDTO> findByCodigo(String codigo) {
+        return repository.findByCodigo(codigo).map(mapper::toDTO);
+    }
+
+    @Cacheable(value = "statusNotificacoes", key = "'count-all'")
+    public Long contarTodos() {
+        return repository.count();
     }
 }

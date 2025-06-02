@@ -21,7 +21,7 @@ public class TipoUsuarioService {
     private final TipoUsuarioRepository repository;
     private final TipoUsuarioMapper mapper;
 
-    @Cacheable(value = "tipoUsuarios")
+    @Cacheable(value = "tipoUsuarios", key = "'listar-' + #codigo + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<TipoUsuarioDTO> listar(String codigo, Pageable pageable) {
         return repository.findByFiltro(codigo, pageable).map(mapper::toDTO);
     }
@@ -51,5 +51,15 @@ public class TipoUsuarioService {
     @CacheEvict(value = "tipoUsuarios", allEntries = true)
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    @Cacheable(value = "tipoUsuarios", key = "'codigo-' + #codigo")
+    public Optional<TipoUsuarioDTO> findByCodigo(String codigo) {
+        return repository.findByCodigo(codigo).map(mapper::toDTO);
+    }
+
+    @Cacheable(value = "tipoUsuarios", key = "'count-all'")
+    public Long contarTodos() {
+        return repository.count();
     }
 }

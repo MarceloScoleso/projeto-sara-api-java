@@ -19,6 +19,6 @@ public OpenAPI springShopOpenAPI() {
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Documentação SARA")
-                        .url("https://github.com/MarceloScoleso/projeto-sara"));
+                        .url("https://github.com/MarceloScoleso/projeto-sara-api-java"));
 }
 }

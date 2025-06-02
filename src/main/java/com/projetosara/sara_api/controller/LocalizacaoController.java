@@ -42,4 +42,20 @@ public class LocalizacaoController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    
+    @GetMapping("/estado")
+    public Page<LocalizacaoDTO> listarPorEstado(@RequestParam String estado, Pageable pageable) {
+        return service.listarPorEstado(estado, pageable);
+    }
+
+    
+    @GetMapping("/contar-sensores")
+    public ResponseEntity<Long> contarSensores(@RequestParam Long id) {
+        Long count = service.contarSensores(id);
+        if (count == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(count);
+    }
 }

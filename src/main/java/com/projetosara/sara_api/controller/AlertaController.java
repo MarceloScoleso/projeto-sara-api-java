@@ -6,8 +6,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/api/alertas")
@@ -25,6 +27,19 @@ public class AlertaController {
         return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/por-nivel")
+    public Page<AlertaDTO> buscarPorNivelAlerta(@RequestParam Long nivelAlertaId, Pageable pageable) {
+        return service.buscarPorNivelAlerta(nivelAlertaId, pageable);
+    }
+
+    @GetMapping("/por-periodo")
+    public Page<AlertaDTO> buscarPorIntervaloDeDatas(
+        @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dataInicio,
+        @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dataFim,
+        Pageable pageable) {
+        return service.buscarPorIntervaloDeDatas(dataInicio, dataFim, pageable);
     }
 
     @PostMapping

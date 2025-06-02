@@ -43,4 +43,18 @@ public class TipoSensorController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    
+    @GetMapping("/codigo/{codigo}")
+    public ResponseEntity<TipoSensorDTO> buscarPorCodigo(@PathVariable String codigo) {
+        return service.findByCodigo(codigo)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    
+    @GetMapping("/count")
+    public ResponseEntity<Long> contarTodos() {
+        return ResponseEntity.ok(service.contarTodos());
+    }
 }

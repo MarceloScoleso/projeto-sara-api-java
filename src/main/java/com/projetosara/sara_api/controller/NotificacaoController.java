@@ -1,13 +1,13 @@
-package com.projetosara.sara_api.controller;
+    package com.projetosara.sara_api.controller;
 
-import com.projetosara.sara_api.dto.NotificacaoDTO;
-import com.projetosara.sara_api.service.NotificacaoService;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+    import com.projetosara.sara_api.dto.NotificacaoDTO;
+    import com.projetosara.sara_api.service.NotificacaoService;
+    import jakarta.validation.Valid;
+    import lombok.RequiredArgsConstructor;
+    import org.springframework.data.domain.Page;
+    import org.springframework.data.domain.Pageable;
+    import org.springframework.http.*;
+    import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/notificacoes")
@@ -41,5 +41,21 @@ public class NotificacaoController {
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    
+    @GetMapping("/status")
+    public Page<NotificacaoDTO> listarPorStatus(@RequestParam Long statusId, Pageable pageable) {
+        return service.listarPorStatus(statusId, pageable);
+    }
+
+    
+    @GetMapping("/count-by-usuario")
+    public ResponseEntity<Long> contarPorUsuario(@RequestParam Long usuarioId) {
+        Long count = service.contarPorUsuario(usuarioId);
+        if (count == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(count);
     }
 }

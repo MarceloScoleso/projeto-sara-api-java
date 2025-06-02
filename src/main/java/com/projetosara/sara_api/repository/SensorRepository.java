@@ -8,6 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface SensorRepository extends JpaRepository<Sensor, Long> {
-    @Query("SELECT s FROM Sensor s WHERE (:localizacaoId IS NULL OR s.localizacao.id = :localizacaoId)")
-    Page<Sensor> findByFiltro(@Param("localizacaoId") Long localizacaoId, Pageable pageable);
-}   
+    @Query("SELECT s FROM Sensor s WHERE (:tipoSensorId IS NULL OR s.tipoSensor.id = :tipoSensorId)")
+    Page<Sensor> findByFiltro(@Param("tipoSensorId") Long tipoSensorId, Pageable pageable);
+
+    @Query("SELECT s FROM Sensor s WHERE s.tipoSensor.id = :tipoSensorId")
+    Page<Sensor> findByTipoSensorId(@Param("tipoSensorId") Long tipoSensorId, Pageable pageable);
+
+    @Query("SELECT COUNT(s) FROM Sensor s WHERE s.localizacao.id = :localizacaoId")
+    Long countByLocalizacaoId(@Param("localizacaoId") Long localizacaoId);
+} 

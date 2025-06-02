@@ -43,4 +43,18 @@ public class UsuarioController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    
+    @GetMapping("/email/{email}")
+    public ResponseEntity<UsuarioDTO> buscarPorEmail(@PathVariable String email) {
+        return service.findByEmail(email)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    
+    @GetMapping("/count")
+    public ResponseEntity<Long> contarUsuarios() {
+        return ResponseEntity.ok(service.contarUsuarios());
+    }
 }

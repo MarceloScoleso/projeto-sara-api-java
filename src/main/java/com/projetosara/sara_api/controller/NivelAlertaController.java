@@ -42,4 +42,22 @@ public class NivelAlertaController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    
+    @GetMapping("/codigo-exato")
+    public ResponseEntity<NivelAlertaDTO> buscarPorCodigoExato(@RequestParam String codigo) {
+        return service.findByCodigoExato(codigo)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    
+    @GetMapping("/contar-alertas")
+    public ResponseEntity<Long> contarAlertas(@RequestParam Long id) {
+        Long count = service.contarAlertas(id);
+        if (count == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(count);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
+import java.util.Date;
 
 import java.util.Optional;
 
@@ -25,6 +26,16 @@ public class AlertaService {
     public Page<AlertaDTO> listar(String titulo, Pageable pageable) {
         return repository.findByFiltro(titulo, pageable).map(mapper::toDTO);
     }
+
+    @Cacheable(value = "alertas", key = "'nivelAlerta-' + #nivelAlertaId + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
+public Page<AlertaDTO> buscarPorNivelAlerta(Long nivelAlertaId, Pageable pageable) {
+    return repository.findByNivelAlertaId(nivelAlertaId, pageable).map(mapper::toDTO);
+}
+
+@Cacheable(value = "alertas", key = "'dataRange-' + #dataInicio.time + '-' + #dataFim.time + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
+public Page<AlertaDTO> buscarPorIntervaloDeDatas(Date dataInicio, Date dataFim, Pageable pageable) {
+    return repository.findByDataHoraBetween(dataInicio, dataFim, pageable).map(mapper::toDTO);
+}
 
     @Cacheable(value = "alertas", key = "#id")
     public Optional<AlertaDTO> findById(Long id) {

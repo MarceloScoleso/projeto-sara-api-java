@@ -21,7 +21,7 @@ public class TipoSensorService {
     private final TipoSensorRepository repository;
     private final TipoSensorMapper mapper;
 
-    @Cacheable(value = "tipoSensores")
+    @Cacheable(value = "tipoSensores", key = "'listar-' + #codigo + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<TipoSensorDTO> listar(String codigo, Pageable pageable) {
         return repository.findByFiltro(codigo, pageable).map(mapper::toDTO);
     }
@@ -51,5 +51,15 @@ public class TipoSensorService {
     @CacheEvict(value = "tipoSensores", allEntries = true)
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    @Cacheable(value = "tipoSensores", key = "'codigo-' + #codigo")
+    public Optional<TipoSensorDTO> findByCodigo(String codigo) {
+        return repository.findByCodigo(codigo).map(mapper::toDTO);
+    }
+
+    @Cacheable(value = "tipoSensores", key = "'count-all'")
+    public Long contarTodos() {
+        return repository.count();
     }
 }

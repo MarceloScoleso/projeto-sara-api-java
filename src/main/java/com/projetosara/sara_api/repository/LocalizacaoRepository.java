@@ -10,4 +10,6 @@ import org.springframework.data.repository.query.Param;
 public interface LocalizacaoRepository extends JpaRepository<Localizacao, Long> {
     @Query("SELECT l FROM Localizacao l WHERE (:cidade IS NULL OR LOWER(l.cidade) LIKE LOWER(CONCAT('%', :cidade, '%')))")
     Page<Localizacao> findByFiltro(@Param("cidade") String cidade, Pageable pageable);
+    @Query("SELECT l FROM Localizacao l WHERE LOWER(l.estado) LIKE LOWER(CONCAT('%', :estado, '%'))")
+    Page<Localizacao> findByEstado(@Param("estado") String estado, Pageable pageable);
 }

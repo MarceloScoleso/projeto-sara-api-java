@@ -22,8 +22,8 @@ public class SensorService {
     private final SensorRepository repository;
     private final SensorMapper mapper;
 
-    @Cacheable(value = "sensores", key = "#tipo + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
-    public Page<SensorDTO> listar(long tipoSensorId, Pageable pageable) {
+    @Cacheable(value = "sensores", key = "#tipoSensorId + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
+    public Page<SensorDTO> listar(Long tipoSensorId, Pageable pageable) {
         return repository.findByFiltro(tipoSensorId, pageable).map(mapper::toDTO);
     }
 
@@ -52,5 +52,15 @@ public class SensorService {
     @CacheEvict(value = "sensores", allEntries = true)
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    @Cacheable(value = "sensores", key = "'tipo-' + #tipoSensorId + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
+    public Page<SensorDTO> listarPorTipo(Long tipoSensorId, Pageable pageable) {
+        return repository.findByTipoSensorId(tipoSensorId, pageable).map(mapper::toDTO);
+    }
+
+    @Cacheable(value = "sensores", key = "'count-localizacao-' + #localizacaoId")
+    public Long contarPorLocalizacao(Long localizacaoId) {
+        return repository.countByLocalizacaoId(localizacaoId);
     }
 }

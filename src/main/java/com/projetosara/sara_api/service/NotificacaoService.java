@@ -53,4 +53,14 @@ public class NotificacaoService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    @Cacheable(value = "notificacoes", key = "'status-' + #statusId + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
+    public Page<NotificacaoDTO> listarPorStatus(Long statusId, Pageable pageable) {
+        return repository.findByStatusId(statusId, pageable).map(mapper::toDTO);
+    }
+
+    @Cacheable(value = "notificacoes", key = "'count-usuario-' + #usuarioId")
+    public Long contarPorUsuario(Long usuarioId) {
+        return repository.countByUsuarioId(usuarioId);
+    }
 }
