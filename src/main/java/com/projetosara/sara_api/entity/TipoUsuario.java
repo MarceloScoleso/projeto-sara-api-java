@@ -8,13 +8,17 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "TIPOUSUARIO")
 public class TipoUsuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_TIPO_USUARIO")
     private Long id;
 
+    @Column(name = "CODIGO")
     private String codigo;
+
+    @Column(name = "DESCRICAO")
     private String descricao;
 
     @OneToMany(mappedBy = "tipoUsuario")

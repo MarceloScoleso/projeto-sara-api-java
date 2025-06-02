@@ -7,18 +7,27 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "usuario")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_USUARIO")
     private Long id;
 
+    @Column(name = "NOME", nullable = false, length = 100)
     private String nome;
+
+    @Column(name = "EMAIL", nullable = false, length = 100)
     private String email;
+
+    @Column(name = "SENHA", nullable = false, length = 100)
     private String senha;
+
+    @Column(name = "CPF", nullable = false, length = 11)
     private String cpf;
 
     @ManyToOne
-    @JoinColumn(name = "tipo_usuario_id")
+    @JoinColumn(name = "TIPO_USUARIO_ID")
     private TipoUsuario tipoUsuario;
 }

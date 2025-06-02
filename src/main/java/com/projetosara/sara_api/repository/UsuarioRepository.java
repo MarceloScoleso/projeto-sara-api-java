@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query("SELECT u FROM Usuario u WHERE (:nome IS NULL OR LOWER(u.nome) LIKE LOWER(CONCAT('%', :nome, '%')))")
     Page<Usuario> findByFiltro(@Param("nome") String nome, Pageable pageable);
-
+    
     Optional<Usuario> findByEmail(String email);
 }
