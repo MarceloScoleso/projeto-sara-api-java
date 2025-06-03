@@ -12,6 +12,8 @@ import java.util.List;
 public class TipoUsuario {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_usuario_seq")
+    @SequenceGenerator(name = "tipo_usuario_seq", sequenceName = "SEQ_TIPO_USUARIO", allocationSize = 1)
     @Column(name = "ID_TIPO_USUARIO")
     private Long id;
 

@@ -34,8 +34,9 @@ public class TipoUsuarioController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TipoUsuarioDTO> atualizar(@PathVariable Long id, @RequestBody @Valid TipoUsuarioDTO dto) {
-        return service.update(id, dto).map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return service.update(id, dto)
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
