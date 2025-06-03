@@ -23,14 +23,30 @@ public class JwtUtil {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> resolver) {
-        Claims claims = Jwts.parserBuilder().setSigningKey(getSignKey()).build()
-                .parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSignKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
         return resolver.apply(claims);
+    }
+
+    
+    public Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSignKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
+                .claim("roles", userDetails.getAuthorities().stream()
+                        .map(auth -> auth.getAuthority())
+                        .toList()
+                )
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)

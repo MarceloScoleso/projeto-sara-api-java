@@ -8,10 +8,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "LOCALIZACAO")
 public class Localizacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_LOCALIZACAO")
     private Long id;
 
     private String cidade;
