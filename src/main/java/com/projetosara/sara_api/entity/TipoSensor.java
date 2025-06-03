@@ -2,9 +2,11 @@ package com.projetosara.sara_api.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.List;
 
 @Entity
+@Table(name = "TIPOSENSOR") 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,5 +20,7 @@ public class TipoSensor {
     private String descricao;
 
     @OneToMany(mappedBy = "tipoSensor")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private List<Sensor> sensores;
 }
