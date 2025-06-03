@@ -22,16 +22,16 @@ public class AuthController {
     @PostMapping("/login")
 public ResponseEntity<?> login(@RequestBody AuthRequest request) {
     try {
-        // Faz autenticação
+    
         authManager.authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
 
-        // Carrega detalhes do usuário
+        
         UserDetails user = userDetailsService.loadUserByUsername(request.username());
 
-        // Gera token
+        
         String token = jwtUtil.generateToken(user);
 
-        // Retorna o token num JSON
+        
         return ResponseEntity.ok(new AuthResponse(token));
     } catch (AuthenticationException e) {
         return ResponseEntity.status(401).body("Usuário ou senha inválidos");
