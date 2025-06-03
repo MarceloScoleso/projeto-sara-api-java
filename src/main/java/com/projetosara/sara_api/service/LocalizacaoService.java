@@ -57,11 +57,4 @@ public class LocalizacaoService {
     public Page<LocalizacaoDTO> listarPorEstado(String estado, Pageable pageable) {
         return repository.findByEstado(estado, pageable).map(mapper::toDTO);
     }
-
-    @Cacheable(value = "localizacoes", key = "'contarSensores-' + #id")
-    public Long contarSensores(Long id) {
-        return repository.findById(id)
-                .map(localizacao -> (long) localizacao.getSensores().size())
-                .orElse(null);
-    }
 }
