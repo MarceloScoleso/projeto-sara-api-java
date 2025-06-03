@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,23 +36,14 @@ public class LeituraSensorService {
                 .map(mapper::toDTO);
     }
 
-    @Cacheable(value = "leiturasSensorEntreDatas", 
-            key = "#sensorId + '-' + #startDate.time + '-' + #endDate.time")
-    public List<LeituraSensorDTO> listarEntreDatas(Long sensorId, Date startDate, Date endDate) {
-        List<LeituraSensor> leituras = repository.findBySensorIdAndDataHoraBetween(sensorId, startDate, endDate);
-        return leituras.stream()
-                    .map(mapper::toDTO)
-                    .toList();
-    }
-
-    @CacheEvict(value = {"leiturasSensor", "leiturasSensorUltima", "leiturasSensorEntreDatas"}, allEntries = true)
+    @CacheEvict(value = {"leiturasSensor", "leiturasSensorUltima"}, allEntries = true)
     public LeituraSensorDTO save(LeituraSensorDTO dto) {
         LeituraSensor entidade = mapper.toEntity(dto);
         LeituraSensor salva = repository.save(entidade);
         return mapper.toDTO(salva);
     }
 
-    @CacheEvict(value = {"leiturasSensor", "leiturasSensorUltima", "leiturasSensorEntreDatas"}, allEntries = true)
+    @CacheEvict(value = {"leiturasSensor", "leiturasSensorUltima"}, allEntries = true)
     public Optional<LeituraSensorDTO> update(Long id, LeituraSensorDTO dto) {
         return repository.findById(id).map(existing -> {
             dto.setId(id);
@@ -64,7 +53,7 @@ public class LeituraSensorService {
         });
     }
 
-    @CacheEvict(value = {"leiturasSensor", "leiturasSensorUltima", "leiturasSensorEntreDatas"}, allEntries = true)
+    @CacheEvict(value = {"leiturasSensor", "leiturasSensorUltima"}, allEntries = true)
     public void delete(Long id) {
         repository.deleteById(id);
     }

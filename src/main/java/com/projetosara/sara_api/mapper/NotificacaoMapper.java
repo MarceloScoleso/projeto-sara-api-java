@@ -5,7 +5,7 @@ import com.projetosara.sara_api.entity.Notificacao;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {AlertaMapper.class})
 public interface NotificacaoMapper {
     @Mapping(target = "usuario.tipoUsuario.usuarios", ignore = true)
     @Mapping(target = "alerta.localizacao.alertas", ignore = true)
@@ -14,5 +14,6 @@ public interface NotificacaoMapper {
     @Mapping(target = "alerta.usuario.tipoUsuario.usuarios", ignore = true)
     @Mapping(target = "status.notificacoes", ignore = true)
     Notificacao toEntity(NotificacaoDTO dto);
+
     NotificacaoDTO toDTO(Notificacao entity);
 }

@@ -3,8 +3,7 @@ package com.projetosara.sara_api.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-
+import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
@@ -12,6 +11,7 @@ import java.util.Date;
 public class Alerta {
 
     @Id
+    @Column(name = "ID_ALERTA")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -29,5 +29,6 @@ public class Alerta {
     @JoinColumn(name = "localizacao_id")
     private Localizacao localizacao;
 
-    private Date dataHora;
+    @Column(name = "DATA_HORA")
+    private LocalDateTime dataHora;
 }

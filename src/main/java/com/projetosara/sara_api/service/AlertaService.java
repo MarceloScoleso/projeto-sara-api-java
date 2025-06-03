@@ -1,24 +1,25 @@
 package com.projetosara.sara_api.service;
 
-import com.projetosara.sara_api.dto.*;
-import com.projetosara.sara_api.entity.*;
-import com.projetosara.sara_api.mapper.*;
-import com.projetosara.sara_api.repository.*;
+import com.projetosara.sara_api.dto.AlertaDTO;
+import com.projetosara.sara_api.entity.Alerta;
+import com.projetosara.sara_api.mapper.AlertaMapper;
+import com.projetosara.sara_api.repository.AlertaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.CacheEvict;
-import java.util.Date;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class AlertaService {
+
     private final AlertaRepository repository;
     private final AlertaMapper mapper;
 
@@ -28,14 +29,14 @@ public class AlertaService {
     }
 
     @Cacheable(value = "alertas", key = "'nivelAlerta-' + #nivelAlertaId + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
-public Page<AlertaDTO> buscarPorNivelAlerta(Long nivelAlertaId, Pageable pageable) {
-    return repository.findByNivelAlertaId(nivelAlertaId, pageable).map(mapper::toDTO);
-}
+    public Page<AlertaDTO> buscarPorNivelAlerta(Long nivelAlertaId, Pageable pageable) {
+        return repository.findByNivelAlertaId(nivelAlertaId, pageable).map(mapper::toDTO);
+    }
 
-@Cacheable(value = "alertas", key = "'dataRange-' + #dataInicio.time + '-' + #dataFim.time + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
-public Page<AlertaDTO> buscarPorIntervaloDeDatas(Date dataInicio, Date dataFim, Pageable pageable) {
-    return repository.findByDataHoraBetween(dataInicio, dataFim, pageable).map(mapper::toDTO);
-}
+    @Cacheable(value = "alertas", key = "'dataRange-' + #dataInicio + '-' + #dataFim + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
+    public Page<AlertaDTO> buscarPorIntervaloDeDatas(LocalDateTime dataInicio, LocalDateTime dataFim, Pageable pageable) {
+        return repository.findByDataHoraBetween(dataInicio, dataFim, pageable).map(mapper::toDTO);
+    }
 
     @Cacheable(value = "alertas", key = "#id")
     public Optional<AlertaDTO> findById(Long id) {

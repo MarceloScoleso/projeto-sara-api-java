@@ -9,7 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/alertas")
@@ -36,9 +37,9 @@ public class AlertaController {
 
     @GetMapping("/por-periodo")
     public Page<AlertaDTO> buscarPorIntervaloDeDatas(
-        @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dataInicio,
-        @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Date dataFim,
-        Pageable pageable) {
+            @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
+            @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim,
+            Pageable pageable) {
         return service.buscarPorIntervaloDeDatas(dataInicio, dataFim, pageable);
     }
 
