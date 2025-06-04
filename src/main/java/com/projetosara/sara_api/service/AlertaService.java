@@ -12,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -31,11 +30,6 @@ public class AlertaService {
     @Cacheable(value = "alertas", key = "'nivelAlerta-' + #nivelAlertaId + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
     public Page<AlertaDTO> buscarPorNivelAlerta(Long nivelAlertaId, Pageable pageable) {
         return repository.findByNivelAlertaId(nivelAlertaId, pageable).map(mapper::toDTO);
-    }
-
-    @Cacheable(value = "alertas", key = "'dataRange-' + #dataInicio + '-' + #dataFim + '-' + #pageable.pageNumber + '-' + #pageable.pageSize")
-    public Page<AlertaDTO> buscarPorIntervaloDeDatas(LocalDateTime dataInicio, LocalDateTime dataFim, Pageable pageable) {
-        return repository.findByDataHoraBetween(dataInicio, dataFim, pageable).map(mapper::toDTO);
     }
 
     @Cacheable(value = "alertas", key = "#id")

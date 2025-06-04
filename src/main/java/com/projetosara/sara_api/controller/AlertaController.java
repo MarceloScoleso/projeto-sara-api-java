@@ -2,15 +2,16 @@ package com.projetosara.sara_api.controller;
 
 import com.projetosara.sara_api.dto.AlertaDTO;
 import com.projetosara.sara_api.service.AlertaService;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/alertas")
@@ -19,7 +20,13 @@ public class AlertaController {
     private final AlertaService service;
 
     @GetMapping
-    public Page<AlertaDTO> listar(@RequestParam(required = false) String titulo, Pageable pageable) {
+    public Page<AlertaDTO> listar(
+            @RequestParam(required = false)
+            @Parameter(description = "Texto a ser buscado na mensagem do alerta")
+            String titulo,
+            @ParameterObject
+            @PageableDefault(sort = "dataHora", direction = Sort.Direction.DESC)
+            Pageable pageable) {
         return service.listar(titulo, pageable);
     }
 
@@ -31,16 +38,12 @@ public class AlertaController {
     }
 
     @GetMapping("/por-nivel")
-    public Page<AlertaDTO> buscarPorNivelAlerta(@RequestParam Long nivelAlertaId, Pageable pageable) {
-        return service.buscarPorNivelAlerta(nivelAlertaId, pageable);
-    }
-
-    @GetMapping("/por-periodo")
-    public Page<AlertaDTO> buscarPorIntervaloDeDatas(
-            @RequestParam("dataInicio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicio,
-            @RequestParam("dataFim") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFim,
+    public Page<AlertaDTO> buscarPorNivelAlerta(
+            @RequestParam Long nivelAlertaId,
+            @ParameterObject
+            @PageableDefault(sort = "dataHora", direction = Sort.Direction.DESC)
             Pageable pageable) {
-        return service.buscarPorIntervaloDeDatas(dataInicio, dataFim, pageable);
+        return service.buscarPorNivelAlerta(nivelAlertaId, pageable);
     }
 
     @PostMapping
