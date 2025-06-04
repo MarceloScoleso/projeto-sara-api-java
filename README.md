@@ -56,7 +56,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.OracleDialect
 
 ---
 
-### 4. Acesso à API e documentação
+### 3. Acesso à API e documentação
 
 A API estará disponível em:  
 `http://localhost:8080/api`
