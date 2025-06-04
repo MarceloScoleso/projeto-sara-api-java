@@ -35,7 +35,7 @@ Esta API REST, construída com **Spring Boot**, gerencia os dados e regras de ne
 
 ### 1. Clone o repositório
 
-```bash
+
 git clone https://github.com/seu-usuario/projeto-sara.git
 cd projeto-sara
 
@@ -45,7 +45,6 @@ cd projeto-sara
 
 No arquivo `src/main/resources/application.properties`, configure os dados para conexão com o Oracle Database. Exemplo:
 
-```properties
 spring.datasource.url=jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL
 spring.datasource.username=RM557481
 spring.datasource.password=250406
@@ -73,7 +72,7 @@ ou
 
 A API utiliza autenticação via JWT. Para obter um token válido, envie um POST para:
 
-```bash
+
 POST /api/auth/login
 
 {
