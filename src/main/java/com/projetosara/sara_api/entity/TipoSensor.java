@@ -13,7 +13,8 @@ import java.util.List;
 public class TipoSensor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_sensor_seq")
+    @SequenceGenerator(name = "tipo_sensor_seq", sequenceName = "SEQ_TIPO_SENSOR", allocationSize = 1)
     @Column(name = "ID_TIPO_SENSOR")
     private Long id;
 

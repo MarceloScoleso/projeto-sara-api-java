@@ -13,8 +13,9 @@ import java.util.Date;
 public class LeituraSensor {
 
     @Id
-    @Column(name = "ID_LEITURA")  
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "leitura_sensor_seq")
+    @SequenceGenerator(name = "leitura_sensor_seq", sequenceName = "SEQ_LEITURA_SENSOR", allocationSize = 1)
+    @Column(name = "ID_LEITURA")
     private Long id;
 
     @ManyToOne

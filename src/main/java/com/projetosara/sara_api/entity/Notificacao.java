@@ -12,8 +12,9 @@ import java.util.Date;
 public class Notificacao {
 
     @Id
-    @Column(name = "ID_NOTIFICACAO") 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "notificacao_seq")
+    @SequenceGenerator(name = "notificacao_seq", sequenceName = "SEQ_NOTIFICACAO", allocationSize = 1)
+    @Column(name = "ID_NOTIFICACAO")
     private Long id;
 
     @ManyToOne

@@ -12,8 +12,9 @@ import java.util.List;
 public class StatusNotificacao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_STATUS_NOTIFICACAO") 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "status_notificacao_seq")
+    @SequenceGenerator(name = "status_notificacao_seq", sequenceName = "SEQ_STATUS_NOTIFICACAO", allocationSize = 1)
+    @Column(name = "ID_STATUS_NOTIFICACAO")
     private Long id;
 
     @Column(name = "CODIGO")

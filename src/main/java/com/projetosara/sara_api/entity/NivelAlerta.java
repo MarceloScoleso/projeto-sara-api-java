@@ -12,8 +12,9 @@ import java.util.List;
 public class NivelAlerta {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "nivel_alerta_seq")
+    @SequenceGenerator(name = "nivel_alerta_seq", sequenceName = "SEQ_NIVEL_ALERTA", allocationSize = 1)
     @Column(name = "ID_NIVEL_ALERTA")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String codigo;

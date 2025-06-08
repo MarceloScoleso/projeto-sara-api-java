@@ -12,7 +12,8 @@ import java.util.List;
 public class Localizacao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "localizacao_seq")
+    @SequenceGenerator(name = "localizacao_seq", sequenceName = "SEQ_LOCALIZACAO", allocationSize = 1)
     @Column(name = "ID_LOCALIZACAO")
     private Long id;
 
