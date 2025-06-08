@@ -213,14 +213,14 @@ GET /api/usuarios/count
 ## 📸 Evidências da Execução
 
 ### ✅ Execução dos containers em segundo plano (`docker-compose up -d`)
-![docker-compose up](prints/evidencia1.png)
+![docker-compose up](prints/Evidencia1.png)
 
 ### ✅ Comando `docker ps` exibindo os containers em execução
-![docker ps](prints/evidencia2.png)
+![docker ps](prints/Evidencia2.png)
 
 ### ✅ Logs dos containers (`docker logs <nome_container>`)
-![docker logs sara-api](prints/evidencia3.png)
-![docker logs oracle-db](prints/evidencia4.png)
+![docker logs sara-api](prints/Evidencia3.png)
+![docker logs oracle-db](prints/Evidencia4.png)
 
 
 ---
