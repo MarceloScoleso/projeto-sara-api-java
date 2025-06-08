@@ -8,10 +8,10 @@ import jakarta.validation.constraints.NotBlank;
 public class LoginRequestDTO {
 
     @NotBlank
-    @Schema(example = "joao@gmail.com", description = "Email ou nome de usuário")
+    @Schema(example = "Marcelo@email.com", description = "Email ou nome de usuário")
     private String username;
 
     @NotBlank
-    @Schema(example = "senha123", description = "Senha do usuário")
+    @Schema(example = "Marcio12", description = "Senha do usuário")
     private String password;
 }
