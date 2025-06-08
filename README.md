@@ -44,10 +44,11 @@ cd projeto-sara
 
 ---
 
-### ☁️ Como rodar o Projeto SARA na Nuvem
+## ☁️ Como rodar o Projeto SARA na Nuvem
+
 Esta seção traz um guia básico para implantar o projeto SARA em ambientes de nuvem usando containers Docker, facilitando a escalabilidade, portabilidade e gerenciamento da aplicação.
 ---
-## 1. Pré-requisitos para deploy em nuvem
+### 1. Pré-requisitos para deploy em nuvem
 
 - Conta em um provedor de nuvem (AWS, Azure, Google Cloud, etc)
 
@@ -57,7 +58,8 @@ Esta seção traz um guia básico para implantar o projeto SARA em ambientes de 
 
 - Registro de imagem Docker (Docker Hub, AWS ECR, Azure Container Registry, Google Container Registry)
 
-## 2. Gerar a imagem Docker da aplicação
+### 2. Gerar a imagem Docker da aplicação
+
 No diretório do projeto, construa sua imagem:
 ---
 docker build -t seu_usuario/projeto-sara-api-java:latest .
@@ -70,6 +72,7 @@ Envie a imagem para o repositório remoto:
 docker push seu_usuario/projeto-sara-api-java:latest
 
 ### 3. Subir os containers em nuvem
+
 Acesse sua VM ou serviço gerenciado com Docker e rode:
 ---
 docker-compose up -d
@@ -80,7 +83,7 @@ Visualize os logs:
 
 docker-compose logs -f
 
-## 5. Configurações adicionais
+### 4. Configurações adicionais
 
 - Variáveis de ambiente: Configure credenciais e parâmetros sensíveis usando secrets do provedor ou variáveis de ambiente no serviço gerenciado
 
@@ -90,7 +93,8 @@ docker-compose logs -f
 
 - Escalabilidade: Utilize orquestradores como Kubernetes (EKS, AKS, GKE) para maior controle e escalonamento automático
 
-## 6. Acesso à API na nuvem
+### 5. Acesso à API na nuvem
+
 Após subir os containers, acesse:
 
 
@@ -117,11 +121,11 @@ Authorization: Bearer <token>
 
 ## 📄 Exemplo de uso da API – Tipo de Usuário
 
-# 🔍 Buscar por ID
+### 🔍 Buscar por ID
 
 GET /api/tipos-usuario/{id}
 
-# 🔁 Atualizar
+### 🔁 Atualizar
 
 PUT /api/tipos-usuario/{id}
 
@@ -130,15 +134,15 @@ PUT /api/tipos-usuario/{id}
   "descricao": "Administrador do programa"
 }
 
-# 🗑️ Deletar
+### 🗑️ Deletar
 
 DELETE /api/tipos-usuario/{id}
 
-#📋 Listar todos
+### 📋 Listar todos
 
 GET /api/tipos-usuario
 
-# ➕ Criar
+### ➕ Criar
 
 POST /api/tipos-usuario
 {
@@ -146,22 +150,22 @@ POST /api/tipos-usuario
   "descricao": "Usuáriocom permissões limitadas"
 }
 
-# 🔢 Contagem total
+### 🔢 Contagem total
 
 GET /api/tipos-usuario/count
 
-# 🔍 Buscar por código
+### 🔍 Buscar por código
 
 GET /api/tipos-usuario/codigo/ADMIN
 
 
 ## 👤 Exemplo de uso da API – Usuário
 
-# 🔍 Buscar por ID
+### 🔍 Buscar por ID
 
 GET /api/usuarios/{id}
 
-# 🔁 Atualizar
+### 🔁 Atualizar
 
 PUT /api/usuarios/{id}
 
@@ -175,15 +179,15 @@ PUT /api/usuarios/{id}
   }
 }
 
-# 🗑️ Deletar
+### 🗑️ Deletar
 
 DELETE /api/usuarios/{id}
 
-# 📋 Listar todos
+### 📋 Listar todos
 
 GET /api/usuarios
 
-# ➕ Criar
+### ➕ Criar
 
 POST /api/usuarios
 
@@ -197,24 +201,24 @@ POST /api/usuarios
   }
 }
 
-# 🔍 Buscar por e-mail
+### 🔍 Buscar por e-mail
 
 GET /api/usuarios/email/marianasiq@gmail.com
 
-# 🔢 Contagem total
+### 🔢 Contagem total
 
 GET /api/usuarios/count
 
 ---
 ## 📸 Evidências da Execução
 
-# ✅ Execução dos containers em segundo plano (`docker-compose up -d`)
+### ✅ Execução dos containers em segundo plano (`docker-compose up -d`)
 ![docker-compose up](prints/evidencia1.png)
 
-# ✅ Comando `docker ps` exibindo os containers em execução
+### ✅ Comando `docker ps` exibindo os containers em execução
 ![docker ps](prints/evidencia2.png)
 
-# ✅ Logs dos containers (`docker logs <nome_container>`)
+### ✅ Logs dos containers (`docker logs <nome_container>`)
 ![docker logs sara-api](prints/evidencia3.png)
 ![docker logs oracle-db](prints/evidencia4.png)
 
