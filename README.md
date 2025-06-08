@@ -216,11 +216,11 @@ GET /api/usuarios/count
 ![docker-compose up](prints/Evidencia1.PNG)
 
 ### ✅ Comando `docker ps` exibindo os containers em execução
-![docker ps](prints/Evidencia2.PNG)
+![docker ps](prints/evidencia2.PNG)
 
 ### ✅ Logs dos containers (`docker logs <nome_container>`)
-![docker logs sara-api](prints/Evidencia3.PNG)
-![docker logs oracle-db](prints/Evidencia4.PNG)
+![docker logs sara-api](prints/evidencia3.PNG)
+![docker logs oracle-db](prints/evidencia4.PNG)
 
 
 ---
